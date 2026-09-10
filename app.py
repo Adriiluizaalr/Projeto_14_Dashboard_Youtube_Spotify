@@ -5,15 +5,18 @@ import pandas as pd
 st.set_page_config(page_title="Dashboard Musical", page_icon="🎵", layout="wide")
 
 ## 1.Coloque o titulo do dashboard
-
+st.title('dashbord de musicas')
 ## 2.Carregar os dados do arquivo 'Dados_Artistas.csv'
-df = pd.read_csv('Dados_Artistas.csv')
+df = pd.read_parquet('Dados_Artistas.parquet')
 
 # Único filtro, adicionando opção 'TODOS'
 artista = st.selectbox("Escolha um Artista:", ['TODOS'] + list(df['Artist'].unique()))
 
 ## 3.Filtrar os dados com base na seleção do artista
-
+if artista == "TODOS":
+    dados = df
+else:
+    dados = df[df['Artist']== artista]
 
 # Apenas 3 métricas
 st.write("### 📈 Métricas")
